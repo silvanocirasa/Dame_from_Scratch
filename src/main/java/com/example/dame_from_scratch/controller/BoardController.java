@@ -45,6 +45,7 @@ public class BoardController {
                         renderBoard(board, false, primaryStage);
                         currentlySelectedPawn = null;
                     });
+                    board.add(cell, j, i);
                 }
             }
         }

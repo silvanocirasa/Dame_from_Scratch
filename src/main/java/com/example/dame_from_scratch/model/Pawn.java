@@ -16,7 +16,6 @@ public class Pawn {
     protected int col;
     public static final int NUM_COLS = 10;
     public static final int NUM_ROWS = 10;
-    private static final String assetsFolder = "/";
     public static final Image WHITE_PAWN_SPRITE = loadImage(Color.WHITE, false);
     public static final Image PURPLE_PAWN_SPRITE = loadImage(Color.PURPLE, false);
 
@@ -61,7 +60,7 @@ public class Pawn {
 
     protected static Image loadImage(Color wantedColor, boolean isKing) {
         String imgColor = wantedColor.equals(Color.WHITE) ? "white" : "purple";
-        String imgPath = isKing ? assetsFolder + imgColor + "-king.png" : assetsFolder + imgColor + "-pawn.png";
+        String imgPath = isKing ? "/" + imgColor + "-king.png" : "/" + imgColor + "-pawn.png";
         return new Image(Objects.requireNonNull(Pawn.class.getResource(imgPath)).toExternalForm());
     }
 
@@ -75,8 +74,8 @@ public class Pawn {
                 } else {
                     pawnsPosition[NUM_ROWS - (i + 1)][j] = new Pawn(Color.WHITE, NUM_ROWS - (i + 1), j);
                 }
+
             }
         }
     }
-
 }
