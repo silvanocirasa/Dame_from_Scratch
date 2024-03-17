@@ -1,9 +1,12 @@
 package com.example.dame_from_scratch.controller;
 
+import com.example.dame_from_scratch.model.Game;
 import com.example.dame_from_scratch.model.Pawn;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -17,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class BoardController {
 
     private static Pawn currentlySelectedPawn = null;
-
+    private static Game currentGame = new Game();
 
     public void updateCellReferential(int i, int j) {
         Pawn pawn = Pawn.pawnsPosition[i][j];
@@ -102,4 +105,17 @@ public class BoardController {
     }
 
 
+    public void handleStartGameButton(GridPane board, Stage primaryStage) {
+        Pawn.initBoard();
+        renderBoard(board, false, primaryStage);
+    }
+
+    public void moveAI(GridPane board, Stage primaryStage) {
+        System.out.println("Initial game board: " + this);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            currentGame.moveAI();
+            renderBoard(board, false, primaryStage);
+        }));
+        timeline.play();
+    }
 }

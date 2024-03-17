@@ -15,7 +15,7 @@ public class Main extends Application {
         BorderPane gameRoot = new BorderPane();
         BoardView.initBoard(gameRoot, stage);
 
-        Scene scene = new Scene(gameRoot, 800, 800);
+         Scene scene = new Scene(gameRoot, 800, 800);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

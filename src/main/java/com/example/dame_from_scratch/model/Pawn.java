@@ -3,6 +3,8 @@ package com.example.dame_from_scratch.model;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Pawn {
@@ -77,5 +79,35 @@ public class Pawn {
 
             }
         }
+    }
+
+    public List<Move> getValidMoves() {
+        List<Move> validMoves = new ArrayList<>();
+
+        // Define the direction of movement based on the pawn's color
+        int direction = this.color.equals(Color.BLACK) ? -1 : 1;
+
+        // Check for regular moves and captures in both diagonal directions
+        for (int dx = -1; dx <= 1; dx += 2) {
+            int newRow = this.row + direction;
+            int newCol = this.col + dx;
+
+            // Check if the new position is within the board boundaries
+            if (newRow >= 0 && newRow < NUM_ROWS && newCol >= 0 && newCol < NUM_COLS) {
+                // Check if the new position is empty for a regular move
+                if (pawnsPosition[newRow][newCol] == null) {
+                    validMoves.add(new Move(newRow, newCol));
+                }
+                // Check if the new position has an opponent's pawn and the position beyond it is empty for a capture
+                else if (!pawnsPosition[newRow][newCol].getColor().equals(this.color) &&
+                        newRow + direction >= 0 && newRow + direction < NUM_ROWS &&
+                        newCol + dx >= 0 && newCol + dx < NUM_COLS &&
+                        pawnsPosition[newRow + direction][newCol + dx] == null) {
+                    validMoves.add(new Move(newRow + direction, newCol + dx));
+                }
+            }
+        }
+
+        return validMoves;
     }
 }
